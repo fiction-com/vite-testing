@@ -18,6 +18,7 @@ export const factorApp = async (
   if (context.url) {
     router.push(context.url);
   }
+
   await router.isReady();
 
   return app;

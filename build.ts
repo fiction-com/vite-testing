@@ -31,17 +31,14 @@ export const buildApp = async (): Promise<void> => {
 
   const app = express();
 
-  app.use(
-    "/_assets",
-    express.static(path.join(appDist, "client", "_assets"), { etag: false })
-  );
+  app.use("/_assets", express.static(path.join(appDist, "client", "_assets")));
 
   app.get("*", async (req, res) => {
     const { factorApp } = require(viteOutput);
     const context = { url: req.url };
 
     const fa = await factorApp(context);
-    // // Render the html of the app, and insert it in the generated index.html built for client side.
+
     const content = await renderToString(fa, context);
 
     const basicHtml = clientResult[0].html;
